@@ -30,11 +30,13 @@ public class Television extends Product{
         isSmart = smart;
     }
 
+    // Sovrascrivo il metodo toString di Product
     @Override
     public String toString() {
         return "Name: " + getName() + ", Description: " + getDescription() + ", Price (with VAT): " + getTaxedPrice() + "Є";
     }
 
+    // Calcolo il prezzo compreso di sconto fedeltà o tipologia prodotto
     @Override
     public double discountedPrice() {
         if(!this.isSmart ) {

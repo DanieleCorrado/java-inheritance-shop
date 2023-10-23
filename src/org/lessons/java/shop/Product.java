@@ -65,10 +65,13 @@ public class Product {
         return codePadLeft(this.code) + "-" + this.name.replace(" ", "-");
     }
 
+
+    // Calcolo il prezzo compreso di IVA
     public double getTaxedPrice() {
         return this.price + ((this.price / 100) * this.vat);
     }
 
+    // Calcolo il prezzo compreso di sconto fedeltà
     public double discountedPrice() {
         return getTaxedPrice() - ((getTaxedPrice() / 100) * 2);
     }
@@ -87,6 +90,8 @@ public class Product {
             return codeString.toString();
         }
     }
+
+    // Sovrascrivo il metodo toString di default di java
     @Override
     public String toString() {
         return "Name: " + getName();
