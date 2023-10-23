@@ -1,5 +1,6 @@
 package org.lessons.java.shop;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class Carrello {
@@ -29,9 +30,9 @@ public class Carrello {
             System.out.print("Enter Description: ");
             String description = scanner.nextLine();
             System.out.print("Enter price: ");
-            double price = Double.parseDouble(scanner.nextLine());
+            BigDecimal price = new BigDecimal(scanner.nextLine());
             System.out.print("Enter VAT: ");
-            double vat = Double.parseDouble(scanner.nextLine());
+            BigDecimal vat =  new BigDecimal(scanner.nextLine());
 
             if (productType == 1) {
                 System.out.print("Enter the storage: ");
@@ -62,17 +63,17 @@ public class Carrello {
         System.out.print("Do you have a loyalty card? (true, false) ");
         boolean fidelityCard = Boolean.parseBoolean(scanner.nextLine());
 
-        double totalCart = 0;
+        BigDecimal totalCart = new BigDecimal(0);
         System.out.println("The cart contains the following products: ");
         for (int i = 0; i < products.length; i++) {
 
             System.out.println(products[i]);
 
             if (fidelityCard) {
-                System.out.println("Discount applied the new price is: " + products[i].discountedPrice());
-                totalCart +=products[i].discountedPrice();
+                System.out.println("Discount applied the new price is: " + products[i].discountedPrice() + "Є");
+                totalCart = totalCart.add(products[i].discountedPrice());
             } else {
-                totalCart += products[i].getTaxedPrice();
+                totalCart = totalCart.add(products[i].getTaxedPrice());
             }
 
         }

@@ -1,11 +1,14 @@
 package org.lessons.java.shop;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class Television extends Product{
 
     private int inch;
     private boolean isSmart;
 
-    public Television(String name, String description, double price, double vat, int inch, boolean isSmart) {
+    public Television(String name, String description, BigDecimal price, BigDecimal vat, int inch, boolean isSmart) {
         super(name, description, price, vat);
 
         this.inch = inch;
@@ -38,11 +41,11 @@ public class Television extends Product{
 
     // Calcolo il prezzo compreso di sconto fedeltà o tipologia prodotto
     @Override
-    public double discountedPrice() {
+    public BigDecimal discountedPrice() {
         if(!this.isSmart ) {
-            return getTaxedPrice() - ((getTaxedPrice() / 100) * 10);
+            return getTaxedPrice().subtract((getTaxedPrice().divide(new BigDecimal(100),2, RoundingMode.UNNECESSARY)).multiply(new BigDecimal(10)));
         } else {
-            return getTaxedPrice() - ((getTaxedPrice() / 100) * 2);
+            return getTaxedPrice().subtract((getTaxedPrice().divide(new BigDecimal(100),2, RoundingMode.UNNECESSARY)).multiply(new BigDecimal(2)));
         }
     }
 }

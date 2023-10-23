@@ -1,5 +1,7 @@
 package org.lessons.java.shop;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Random;
 
 public class Product {
@@ -9,12 +11,12 @@ public class Product {
     private int code;
     private String name;
     private String description;
-    private double price;
-    private double vat;
+    private BigDecimal price;
+    private BigDecimal vat;
 
     // COSTRUTTORI
 
-    public Product(String name, String description, double price, double vat) {
+    public Product(String name, String description, BigDecimal price, BigDecimal vat) {
         Random randomNumber = new Random();
         this.code = randomNumber.nextInt(1, 999);
         this.name = name;
@@ -45,19 +47,19 @@ public class Product {
         this.description = description;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public double getVat() {
+    public BigDecimal getVat() {
         return vat;
     }
 
-    public void setVat(double vat) {
+    public void setVat(BigDecimal vat) {
         this.vat = vat;
     }
 
@@ -67,13 +69,13 @@ public class Product {
 
 
     // Calcolo il prezzo compreso di IVA
-    public double getTaxedPrice() {
-        return this.price + ((this.price / 100) * this.vat);
+    public BigDecimal getTaxedPrice() {
+        return this.price.add((this.price.divide(new BigDecimal(100),2, RoundingMode.UNNECESSARY)).multiply(this.vat));
     }
 
     // Calcolo il prezzo compreso di sconto fedeltà
-    public double discountedPrice() {
-        return getTaxedPrice() - ((getTaxedPrice() / 100) * 2);
+    public BigDecimal discountedPrice() {
+        return getTaxedPrice().subtract((this.getTaxedPrice().divide(new BigDecimal(100), 2, RoundingMode.UNNECESSARY)).multiply(new BigDecimal(2)));
     }
 
     private String codePadLeft(int code) {

@@ -1,11 +1,14 @@
 package org.lessons.java.shop;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class Headset extends Product {
 
     private String color;
     private boolean isWireless;
 
-    public Headset(String name, String description, double price, double vat, String color, boolean isWireless) {
+    public Headset(String name, String description, BigDecimal price, BigDecimal vat, String color, boolean isWireless) {
         super(name, description, price, vat);
 
         this.color = color;
@@ -38,11 +41,11 @@ public class Headset extends Product {
 
     // Calcolo il prezzo compreso di sconto fedeltà o tipologia prodotto
     @Override
-    public double discountedPrice() {
+    public BigDecimal discountedPrice() {
         if(!this.isWireless) {
-            return getTaxedPrice() - ((getTaxedPrice() / 100) * 7);
+            return getTaxedPrice().subtract((getTaxedPrice().divide(new BigDecimal(100),2, RoundingMode.UNNECESSARY)).multiply(new BigDecimal(7)));
         } else {
-            return getTaxedPrice() - ((getTaxedPrice() / 100) * 2);
+            return getTaxedPrice().subtract((getTaxedPrice().divide(new BigDecimal(100),2, RoundingMode.UNNECESSARY)).multiply(new BigDecimal(2)));
         }
     }
 }

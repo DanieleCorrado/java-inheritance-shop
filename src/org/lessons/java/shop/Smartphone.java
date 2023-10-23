@@ -1,5 +1,7 @@
 package org.lessons.java.shop;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Random;
 
 public class Smartphone extends Product{
@@ -7,7 +9,7 @@ public class Smartphone extends Product{
     private long imei;
     private int storage;
 
-    public Smartphone(String name, String description, double price, double vat, int storage) {
+    public Smartphone(String name, String description, BigDecimal price, BigDecimal vat, int storage) {
         super(name, description, price, vat);
 
         Random randomNumber = new Random();
@@ -40,11 +42,11 @@ public class Smartphone extends Product{
 
     // Calcolo il prezzo compreso di sconto fedeltà o tipologia prodotto
     @Override
-    public double discountedPrice() {
+    public BigDecimal discountedPrice() {
         if(this.storage < 32 ) {
-            return getTaxedPrice() - ((getTaxedPrice() / 100) * 5);
+            return getTaxedPrice().subtract((getTaxedPrice().divide(new BigDecimal(100),2, RoundingMode.UNNECESSARY)).multiply(new BigDecimal(5)));
         } else {
-            return getTaxedPrice() - ((getTaxedPrice() / 100) * 2);
+            return getTaxedPrice().subtract((getTaxedPrice().divide(new BigDecimal(100),2, RoundingMode.UNNECESSARY)).multiply(new BigDecimal(2)));
         }
     }
 }
