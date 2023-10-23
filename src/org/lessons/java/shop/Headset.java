@@ -30,7 +30,17 @@ public class Headset extends Product {
         isWireless = wireless;
     }
 
+    @Override
     public String toString() {
         return "Name: " + getName() + ", Description: " + getDescription() + ", Price (with VAT): " + getTaxedPrice() + "Є";
+    }
+
+    @Override
+    public double discountedPrice() {
+        if(!this.isWireless) {
+            return getTaxedPrice() - ((getTaxedPrice() / 100) * 7);
+        } else {
+            return getTaxedPrice() - ((getTaxedPrice() / 100) * 2);
+        }
     }
 }

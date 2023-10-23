@@ -69,6 +69,10 @@ public class Product {
         return this.price + ((this.price / 100) * this.vat);
     }
 
+    public double discountedPrice() {
+        return getTaxedPrice() - ((getTaxedPrice() / 100) * 2);
+    }
+
     private String codePadLeft(int code) {
         StringBuilder codeString = new StringBuilder();
         codeString.append(code);
@@ -83,7 +87,6 @@ public class Product {
             return codeString.toString();
         }
     }
-
     @Override
     public String toString() {
         return "Name: " + getName();

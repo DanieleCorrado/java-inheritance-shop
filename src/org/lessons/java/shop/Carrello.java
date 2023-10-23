@@ -41,7 +41,7 @@ public class Carrello {
             } else if (productType == 2) {
             System.out.print("Enter the inches: ");
                 int inches = Integer.parseInt(scanner.nextLine());
-                System.out.print("Is a smart tv? (1 = true, 0 = false): ");
+                System.out.print("Is a smart tv? (true, false): ");
                 boolean isSmart = Boolean.parseBoolean(scanner.nextLine());
                 Television television  = new Television(name,description,price,vat,inches, isSmart);
                 products[i] = television;
@@ -49,7 +49,7 @@ public class Carrello {
             } else if (productType == 3){
                 System.out.print("Enter the color: ");
                 String color = scanner.nextLine();
-                System.out.print("Is a wireless headset? (1 = true, 0 = false): ");
+                System.out.print("Is a wireless headset? (true, false): ");
                 boolean iswireless = Boolean.parseBoolean(scanner.nextLine());
                 Headset headset = new Headset(name,description,price,vat,color,iswireless);
                 products[i] = headset;
@@ -59,14 +59,24 @@ public class Carrello {
 
         System.out.println("All products added");
 
+        System.out.print("Do you have a loyalty card? (true, false) ");
+        boolean fidelityCard = Boolean.parseBoolean(scanner.nextLine());
+
         double totalCart = 0;
         System.out.println("The cart contains the following products: ");
         for (int i = 0; i < products.length; i++) {
+
             System.out.println(products[i]);
-            totalCart += products[i].getTaxedPrice();
+
+            if (fidelityCard) {
+                System.out.println("Discount applied the new price is: " + products[i].discountedPrice());
+                totalCart +=products[i].discountedPrice();
+            } else {
+                totalCart += products[i].getTaxedPrice();
+            }
+
         }
         System.out.print("The total price is: " + totalCart + "Є");
-
 
     }
 }

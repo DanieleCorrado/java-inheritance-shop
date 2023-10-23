@@ -36,4 +36,13 @@ public class Smartphone extends Product{
     public String toString() {
         return "Name: " + getName() + ", Description: " + getDescription() + ", Price (with VAT): " + getTaxedPrice() + "Є";
     }
+
+    @Override
+    public double discountedPrice() {
+        if(this.storage < 32 ) {
+            return getTaxedPrice() - ((getTaxedPrice() / 100) * 5);
+        } else {
+            return getTaxedPrice() - ((getTaxedPrice() / 100) * 2);
+        }
+    }
 }
